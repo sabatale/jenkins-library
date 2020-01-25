@@ -17,5 +17,6 @@ RUN export GIT_COMMIT=$(git rev-parse HEAD) && \
 
 FROM alpine:3.10
 COPY --from=build-env /build/piper /piper
+RUN ls -l /piper
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

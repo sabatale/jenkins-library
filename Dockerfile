@@ -18,8 +18,6 @@ RUN export GIT_COMMIT=$(git rev-parse HEAD) && \
 FROM maven:3-jdk-8-slim
 COPY --from=build-env /build/piper /bin/piper
 
-RUN go build -o /bin/piper
-
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

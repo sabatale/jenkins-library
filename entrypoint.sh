@@ -1,4 +1,4 @@
 #!/bin/sh -l
 set -x
 
-/bin/piper version
+/bin/piper mavenExecute --goals compile

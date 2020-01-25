@@ -15,6 +15,7 @@ RUN export GIT_COMMIT=$(git rev-parse HEAD) && \
             -X github.com/SAP/jenkins-library/pkg/log.LibraryRepository=${GIT_REPOSITORY}" \
         -o piper
 
-# FROM gcr.io/distroless/base:latest
-# COPY --from=build-env /build/piper /piper
-# ENTRYPOINT ["/piper"]
+FROM gcr.io/distroless/base:latest
+COPY --from=build-env /build/piper /piper
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

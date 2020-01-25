@@ -1,0 +1,11 @@
+name: Project "Piper"
+description: CI/CD for the SAP Ecosystem
+inputs:
+  command:
+    description: The command to run
+    required: false
+    default: 'help'
+
+runs:
+  using: docker
+  image: Dockerfile

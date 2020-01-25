@@ -43,7 +43,7 @@ func mavenExecute(myMavenExecuteOptions mavenExecuteOptions) error {
 	fmt.Println(parameters)
 	c := command.Command{}
 	//c.RunExecutable("mvn", parameters...)
-	script := "/usr/bin/mvn " + strings.Join(parameters, " ")
+	script := "mvn " + strings.Join(parameters, " ")
 	fmt.Println(script)
 	c.RunShell("/bin/bash", script)
 

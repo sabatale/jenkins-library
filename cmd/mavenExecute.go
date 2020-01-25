@@ -3,6 +3,7 @@ package cmd
 import (
 	"github.com/SAP/jenkins-library/pkg/command"
 	"fmt"
+	"strings"
 )
 
 func mavenExecute(myMavenExecuteOptions mavenExecuteOptions) error {
@@ -41,8 +42,10 @@ func mavenExecute(myMavenExecuteOptions mavenExecuteOptions) error {
 
 	fmt.Println(parameters)
 	c := command.Command{}
-	c.RunExecutable("mvn", parameters...)
-
+	//c.RunExecutable("mvn", parameters...)
+	script := "mvn " + strings.Join(parameters, " ")
+	fmt.Println(script)
+	c.RunShell("/bin/bash", script)
 
 	return nil
 }

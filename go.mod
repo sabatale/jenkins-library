@@ -8,6 +8,7 @@ require (
 	github.com/google/go-github/v28 v28.1.1
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/pkg/errors v0.8.1
+	github.com/sethvargo/go-githubactions v0.1.1
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/pflag v1.0.5

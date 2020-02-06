@@ -7,11 +7,9 @@ const { spawnSync} = require('child_process');
 
 (async function() {
   const a = spawnSync("go", ["build", "-o", "piper", "."], {cwd: __dirname})
-  console.log('error', a.error);
-console.log('stdout ', a.stdout);
-console.log('stderr ', a.stderr);
+console.log('stdout ', a.stdout.toString());
+console.log('stderr ', a.stderr.toString());
   const b = spawnSync(__dirname + "/piper", ["mavenExecute", "--goals", "verify"], {cwd: "/home/runner/work/piper-go-actions-playground/piper-go-actions-playground"})
-  console.log('error', b.error);
-console.log('stdout ', b.stdout);
-console.log('stderr ', b.stderr);
+console.log('stdout ', b.stdout.toString());
+console.log('stderr ', b.stderr.toString());
 })();

@@ -115,15 +115,40 @@ For example, you can't reorder stages, change which stages run in parallel or ad
 You can copy and paste the existing Pipelines from those sources into your `Jenkinsfile` and make changes to it
 
 * [piperPipeline](https://github.com/SAP/jenkins-library/blob/master/vars/piperPipeline.groovy)
-* [SAP Cloud SDK Pipeline](https://github.com/SAP/cloud-s4-sdk-pipeline/blob/master/s4sdk-pipeline.groovy)
+* [SAP Cloud SDK Pipeline](https://github.com/SAP/jenkins-library/blob/master/vars/cloudSdkPipeline.groovy)
 
 ### Multiple projects
 
-Similar to what 
+Similar to what you can do in an individual `Jenkinsfile`, you can also copy the pipeline to a file in a separate git repository and modify it.
+
+To do this, create a new git repository in your preferred git hosting service.
+It must be compliant to how Jenkins shared libraries are built.
+Basically this means you need a `vars` directory, inside which you can place a copy of your preferred pipeline.
+
+A minimal example of such a library could look like this
+
+```
+./vars/myCustomPipeline.groovy
+./README.md
+```
+
+where `myCustomPipeline.groovy` contains the modified pipeline code.
+
+This library needs to be placed in a git repository which is available for Jenkins and must be configured in Jenkins [as documented here](https://jenkins.io/doc/book/pipeline/shared-libraries/#using-libraries).
+
+![Library Setup](images/customPipelineLib.png "Library Setup")
+
+The `Jenkinsfile` would look like
+
+```groovy
+@Library('my-own-pipeline') _
+
+myCustomPipeline script: this
+```
 
 
 
-!!! note "How to not get decoupled"
+!!! warning "How to not get decoupled"
     Typically, providing a custom template decouples you from centrally provided updates to your template including the stages.<br />
     Where applicable, you can re-use the stage implementations. This means, you will call e.g. `piperPipelineStageBuild()` as you can see in [piperPipeline](https://github.com/SAP/jenkins-library/blob/master/vars/piperPipeline.groovy).
 
@@ -131,12 +156,6 @@ Similar to what
 
 !!! note "When to go with a custom template"
     If the configuration possibilities are not sufficient for you and if _1. Stage Exits_ is not applicable.
-
-
-In this option, you'll modify one of the ready-made pipelines to suit your needs.
-
-!!! danger "Decoupling"
-    This approach comes with the drawback that you're decoupled from improvements made in the centrally maintained pipelines, so we recommend to check for updates on a regular basis.
 
 ## 3. Custom `Jenkinsfile`
 

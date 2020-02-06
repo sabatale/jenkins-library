@@ -2,23 +2,16 @@
 
 // source: https://blog.myitcv.io/2020/02/04/portable-ci-cd-with-pure-go-github-actions.html
 
-const spawn = require("child_process").spawn;
+const { spawnSync} = require('child_process');
 
-async function run() {
-  var args = Array.prototype.slice.call(arguments);
-  const cmd = spawn(args[0], args.slice(1), {
-    stdio: "inherit",
-    cwd: __dirname
-  });
-  const exitCode = await new Promise((resolve, reject) => {
-    cmd.on("close", resolve);
-  });
-  if (exitCode != 0) {
-    process.exit(exitCode);
-  }
-}
 
 (async function() {
-  const path = require("path");
-  await run("go", "run", ".", "mavenExecute", "--goals", "verify");
+  const a = spawnSync("go", ["build", "-o", "piper", "."], {cwd: __dirname})
+  console.log('error', a.error);
+console.log('stdout ', a.stdout);
+console.log('stderr ', a.stderr);
+  const b = spawnSync(__dirname + "/piper", ["mavenExecute", "--goals", "verify"], {cwd: "/home/runner/work/piper-go-actions-playground/piper-go-actions-playground"})
+  console.log('error', b.error);
+console.log('stdout ', b.stdout);
+console.log('stderr ', b.stderr);
 })();

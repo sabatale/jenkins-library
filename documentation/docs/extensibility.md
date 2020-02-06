@@ -106,7 +106,7 @@ This option describes how you can copy and paste one of the centrally maintained
 This might be done for an individual project (in the `Jenkinsfile`), or in a git repository so it can be used for multiple projects.
 
 
-### Individual Project
+### Single project
 
 The default `Jenkinsfile` of centrally maintained pipelines does nothing except for loading the pipeline as is.
 This is comfortable, but limits what you can modify.
@@ -146,8 +146,6 @@ The `Jenkinsfile` would look like
 myCustomPipeline script: this
 ```
 
-
-
 !!! warning "How to not get decoupled"
     Typically, providing a custom template decouples you from centrally provided updates to your template including the stages.<br />
     Where applicable, you can re-use the stage implementations. This means, you will call e.g. `piperPipelineStageBuild()` as you can see in [piperPipeline](https://github.com/SAP/jenkins-library/blob/master/vars/piperPipeline.groovy).
@@ -155,7 +153,13 @@ myCustomPipeline script: this
     Using this approach you can at least benefit from innovations done in individual project "Piper" stages.
 
 !!! note "When to go with a custom template"
-    If the configuration possibilities are not sufficient for you and if _1. Stage Exits_ is not applicable.
+    If the configuration possibilities are not sufficient for you and if _1) Extend individual stages_ is not applicable because you need more flexibility.
 
 ## 3. Custom `Jenkinsfile`
 
+Since project "Piper" fully builds on [Jenkins Pipelines as Code](https://jenkins.io/doc/book/pipeline-as-code/), you can also go with your complete custom `Jenkinsfile`.
+
+!!! danger "Decoupling"
+    If you go this route you will be decoupled from the innovations provided with project "Piper", unless you re-use for example stages (as indicated above under _2) Modified ready-made pipelines_).
+
+    **We recommend to use this only as last option for extensibility.**
